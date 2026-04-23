@@ -149,6 +149,8 @@ api.register_blueprint(StoreBlueprint)
 #         return {"message": "Store deleted."}
 #     except KeyError:
 #         abort(404,message="Store not found")
-
+@app.route("/")
+def home():
+    return "Flask is working 🚀"
 if __name__ == "__main__":
     app.run()
