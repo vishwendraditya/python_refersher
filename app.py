@@ -150,3 +150,5 @@ api.register_blueprint(StoreBlueprint)
 #     except KeyError:
 #         abort(404,message="Store not found")
 
+if __name__ == "__main__":
+    app.run()
