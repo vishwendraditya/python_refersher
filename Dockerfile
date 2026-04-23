@@ -1,7 +1,14 @@
 FROM python:3.9.13
-EXPOSE 5000
+
 WORKDIR /app
+
 COPY requirements.txt .
 RUN pip install -r requirements.txt
+
 COPY . .
-CMD ["flask", "run", "--host", "0.0.0.0"]
+
+ENV FLASK_APP=app.py
+
+EXPOSE 5000
+
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "app:app"]
