@@ -39,6 +39,7 @@ def register():
             "email": email,
             "resume": filename
         })
+        print(f"User registered: {name}, {email}")
 
         send_email(email, name)
 
@@ -73,20 +74,21 @@ def resume(filename):
     return send_from_directory(app.config["UPLOAD_FOLDER"], filename)
 
 # ---------------- EMAIL ----------------
+
+
 def send_email(to_email, name):
     try:
-        sender_email = "vishwendraditya@gmail.com"
-        sender_password = "fqqqivsxivrzxwoq"
-
-        message = f"Subject: Registration Successful\n\nHello {name}, you are registered!"
-
-        server = smtplib.SMTP("smtp.gmail.com", 587)
+        import smtplib
+        server = smtplib.SMTP("smtp.gmail.com", 587, timeout=5)
         server.starttls()
-        server.login(sender_email, sender_password)
-        server.sendmail(sender_email, to_email, message)
+        server.login("vishwendraditya@gmail.com", "fqqqivsxivrzxwoq")
+
+        message = f"Subject: Registered\n\nHello {name}"
+        server.sendmail("your_email@gmail.com", to_email, message)
         server.quit()
+
     except Exception as e:
-        print("Email error:", e)
+        print("Email failed:", e)
 
 # ---------------- RUN ----------------
 if __name__ == "__main__":
